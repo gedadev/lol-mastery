@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { regions } from "./utils/regions";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function App() {
   const [region, setRegion] = useState("NA1");
   const [gameName, setGameName] = useState("");
   const [tagLine, setTagLine] = useState("");
   const [disabledButton, setDisabledButton] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (gameName && tagLine) {
@@ -15,9 +18,27 @@ function App() {
     }
   }, [gameName, tagLine]);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/getPPUID?name=${gameName}&tag=${tagLine}`
+      );
+      const puuid = response.data.puuid;
+
+      navigate("/summoner", { state: { puuid: puuid } });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <main>
-      <form className="flex items-center flex-col my-20 gap-5 md:flex-row md:justify-center md:relative">
+      <form
+        className="flex items-center flex-col my-20 gap-5 md:flex-row md:justify-center md:relative"
+        onSubmit={handleSubmit}
+      >
         <div className="w-auto flex flex-col gap-2 lg:flex-row lg:items-center">
           <label htmlFor="region">Select region:</label>
           <select
