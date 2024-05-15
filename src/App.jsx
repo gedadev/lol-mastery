@@ -27,7 +27,7 @@ function App() {
       );
       const puuid = response.data.puuid;
 
-      navigate("/summoner", { state: { puuid: puuid } });
+      navigate("/summoner", { state: { puuid, gameName, tagLine } });
     } catch (error) {
       console.log(error);
     }

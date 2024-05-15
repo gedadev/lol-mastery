@@ -7,6 +7,8 @@ import ChampImage from "./components/ChampImage";
 export default function Summoner() {
   const location = useLocation();
   const puuid = location.state.puuid;
+  const gameName = location.state.gameName;
+  const tagLine = location.state.tagLine;
   const [champList, setChampList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [champsPerPage, setChampsPerPage] = useState(30);
@@ -45,7 +47,10 @@ export default function Summoner() {
 
   return (
     <section className="p-2">
-      <h1>Summoner info</h1>
+      <div className="mx-auto my-6 md:max-w-screen-xl flex gap-2 items-end">
+        <h1 className="text-2xl">{gameName}</h1>
+        <h2>{tagLine}</h2>
+      </div>
       <div className="m-auto grid grid-cols-5 gap-2 md:max-w-screen-lg">
         {sliceData.map((champ) => (
           <article key={champ.championId}>
