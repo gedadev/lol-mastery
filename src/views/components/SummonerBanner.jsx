@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { convertTimestampToDate } from "../../utils/epochConverter";
 
 export default function SummonerBanner({ gameName, tagLine, puuid }) {
   const [imgUrl, setImgUrl] = useState(false);
@@ -66,7 +67,7 @@ export default function SummonerBanner({ gameName, tagLine, puuid }) {
           <h2>#{tagLine}</h2>
         </div>
         <p className="opacity-50 col-span-2">
-          Last update: {summonerInfo.revisionDate}
+          Last update: {convertTimestampToDate(summonerInfo.revisionDate)}
         </p>
       </div>
     </section>
