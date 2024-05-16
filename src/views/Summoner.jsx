@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import championFull from "../assets/data/championFull.json";
 import ChampImage from "./components/ChampImage";
+import SummonerBanner from "./components/SummonerBanner";
 
 export default function Summoner() {
   const location = useLocation();
@@ -47,10 +48,7 @@ export default function Summoner() {
 
   return (
     <section className="p-2">
-      <div className="mx-auto my-6 md:max-w-screen-xl flex gap-2 items-end">
-        <h1 className="text-2xl">{gameName}</h1>
-        <h2>{tagLine}</h2>
-      </div>
+      <SummonerBanner gameName={gameName} tagLine={tagLine} puuid={puuid} />
       <div className="m-auto grid grid-cols-5 gap-2 md:max-w-screen-lg">
         {sliceData.map((champ) => (
           <article key={champ.championId}>
