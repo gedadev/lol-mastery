@@ -4,7 +4,6 @@ import axios from "axios";
 import { convertTimestampToDate } from "../../utils/epochConverter";
 
 export default function SummonerBanner({ gameName, tagLine, puuid }) {
-  const [imgUrl, setImgUrl] = useState(false);
   const [summonerInfo, setSummonerInfo] = useState({
     gameName: gameName,
     tagLine: tagLine,
@@ -33,27 +32,11 @@ export default function SummonerBanner({ gameName, tagLine, puuid }) {
     getIcon();
   }, [puuid]);
 
-  useEffect(() => {
-    const getImg = async () => {
-      try {
-        const img = await import(
-          `../../assets/img/profileicon/${summonerInfo.profileIconId}.png`
-        );
-        const url = await img.default;
-        setImgUrl(url);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    getImg();
-  }, [summonerInfo]);
-
   return (
     <section className="mx-auto my-6 md:max-w-screen-xl flex gap-10 items-end">
       <div className="relative">
         <img
-          src={imgUrl}
+          src={`https://ddragon.leagueoflegends.com/cdn/14.10.1/img/profileicon/${summonerInfo.profileIconId}.png`}
           alt={`${gameName}-icon`}
           className="max-w-28 rounded-full"
         />

@@ -2,8 +2,8 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import championFull from "../assets/data/championFull.json";
-import ChampImage from "./components/ChampImage";
 import SummonerBanner from "./components/SummonerBanner";
+import { convertTimestampToDate } from "../utils/epochConverter";
 
 export default function Summoner() {
   const location = useLocation();
@@ -42,7 +42,7 @@ export default function Summoner() {
     return {
       name: champData.name,
       title: champData.title,
-      image: champData.image.full,
+      image: champData.id,
     };
   };
 
@@ -51,13 +51,18 @@ export default function Summoner() {
       <SummonerBanner gameName={gameName} tagLine={tagLine} puuid={puuid} />
       <div className="m-auto grid grid-cols-5 gap-2 md:max-w-screen-lg">
         {sliceData.map((champ) => (
-          <article key={champ.championId}>
-            <ChampImage name={getChampData(String(champ.championId)).image} />
+          <article key={getChampData(String(champ.championId)).name}>
+            <img
+              src={`https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${
+                getChampData(String(champ.championId)).image
+              }_0.jpg`}
+              alt={`${getChampData(String(champ.championId)).name} image`}
+            />
             <h2>{getChampData(String(champ.championId)).name}</h2>
             <p>{champ.championLevel}</p>
             <p>{champ.championPoints}</p>
             {champ.chestGranted ? <p>Chest Granted</p> : <p>No Chest</p>}
-            <p>{champ.lastPlayTime}</p>
+            <p>{convertTimestampToDate(champ.lastPlayTime)}</p>
           </article>
         ))}
       </div>
