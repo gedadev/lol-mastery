@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import championFull from "../assets/data/championFull.json";
 import SummonerBanner from "./components/SummonerBanner";
 import { convertTimestampToDate } from "../utils/epochConverter";
+import { importedMasteries } from "../utils/importMasteries";
+import chest from "../assets/img/chest.webp";
 
 export default function Summoner() {
   const location = useLocation();
@@ -46,6 +48,11 @@ export default function Summoner() {
     };
   };
 
+  const getSrc = (level) => {
+    if (level > 10) level = 10;
+    return importedMasteries[level - 1];
+  };
+
   return (
     <section className="p-2">
       <SummonerBanner gameName={gameName} tagLine={tagLine} puuid={puuid} />
@@ -58,11 +65,21 @@ export default function Summoner() {
               }_0.jpg`}
               alt={`${getChampData(String(champ.championId)).name} image`}
             />
-            <h2>{getChampData(String(champ.championId)).name}</h2>
-            <p>{champ.championLevel}</p>
-            <p>{champ.championPoints}</p>
-            {champ.chestGranted ? <p>Chest Granted</p> : <p>No Chest</p>}
-            <p>{convertTimestampToDate(champ.lastPlayTime)}</p>
+            <h2 className="text-center">
+              {getChampData(String(champ.championId)).name}
+            </h2>
+            <img
+              src={getSrc(champ.championLevel)}
+              alt="mastery banner"
+              className=""
+            />
+            <img
+              src={chest}
+              alt="chest image"
+              className={`${!champ.chestGranted && "opacity-50"}`}
+            />
+            {/* <p>{champ.championPoints}</p> */}
+            {/* <p>{convertTimestampToDate(champ.lastPlayTime)}</p> */}
           </article>
         ))}
       </div>
