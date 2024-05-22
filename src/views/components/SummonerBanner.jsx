@@ -33,7 +33,7 @@ export default function SummonerBanner({ gameName, tagLine, puuid }) {
   }, [puuid]);
 
   return (
-    <section className="mx-auto my-6 md:max-w-screen-xl flex gap-10 items-end">
+    <section className="mx-auto my-6 px-5 md:max-w-screen-xl flex gap-5 justify-between sm:justify-start">
       <div className="relative">
         <img
           src={`https://ddragon.leagueoflegends.com/cdn/14.10.1/img/profileicon/${summonerInfo.profileIconId}.png`}
@@ -45,7 +45,7 @@ export default function SummonerBanner({ gameName, tagLine, puuid }) {
         </div>
       </div>
       <div className="self-center">
-        <div className="flex items-end gap-2">
+        <div className="md:flex items-end gap-2">
           <h1 className="text-3xl">{gameName}</h1>
           <h2>#{tagLine}</h2>
         </div>
