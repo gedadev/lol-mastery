@@ -54,29 +54,35 @@ export default function Summoner() {
   };
 
   return (
-    <section className="p-2">
+    <section className="p-2 m-auto">
       <SummonerBanner gameName={gameName} tagLine={tagLine} puuid={puuid} />
-      <div className="m-auto grid grid-cols-5 gap-2 md:max-w-screen-lg">
+      <div className="flex flex-wrap px-4 gap-2 justify-around max-w-screen-lg mx-auto">
         {sliceData.map((champ) => (
-          <article key={getChampData(String(champ.championId)).name}>
+          <article
+            key={getChampData(String(champ.championId)).name}
+            className="relative"
+          >
+            <h2 className="text-center my-2">
+              {getChampData(String(champ.championId)).name}
+            </h2>
             <img
               src={`https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${
                 getChampData(String(champ.championId)).image
               }_0.jpg`}
               alt={`${getChampData(String(champ.championId)).name} image`}
+              className="w-24 sm:w-32 md:w-44"
             />
-            <h2 className="text-center">
-              {getChampData(String(champ.championId)).name}
-            </h2>
             <img
               src={getSrc(champ.championLevel)}
               alt="mastery banner"
-              className=""
+              className="w-12 sm:w-16 md:w-20 absolute -bottom-4 -left-2"
             />
             <img
               src={chest}
               alt="chest image"
-              className={`${!champ.chestGranted && "opacity-50"}`}
+              className={`${
+                champ.chestGranted && "opacity-50"
+              } w-8 sm:w-10 md:w-14 absolute -bottom-2 right-0`}
             />
             {/* <p>{champ.championPoints}</p> */}
             {/* <p>{convertTimestampToDate(champ.lastPlayTime)}</p> */}

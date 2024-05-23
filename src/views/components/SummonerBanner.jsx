@@ -45,8 +45,8 @@ export default function SummonerBanner({ gameName, tagLine, puuid }) {
         </div>
       </div>
       <div className="self-center">
-        <div className="md:flex items-end gap-2">
-          <h1 className="text-3xl">{gameName}</h1>
+        <div className="sm:flex items-end gap-2">
+          <h1 className="text-2xl sm:text-3xl">{gameName}</h1>
           <h2>#{tagLine}</h2>
         </div>
         <p className="opacity-50 col-span-2">
