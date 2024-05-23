@@ -16,7 +16,7 @@ export default function SummonerBanner({ gameName, tagLine, puuid }) {
     const getIcon = async () => {
       try {
         const summonerData = await axios.get(
-          `https://ddragon.leagueoflegends.com/getSummonerInfo?puuid=${puuid}`
+          `https://lol-mastery-backend.onrender.com/getSummonerInfo?puuid=${puuid}`
         );
         setSummonerInfo((info) => ({
           ...info,
