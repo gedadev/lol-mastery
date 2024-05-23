@@ -27,7 +27,7 @@ export default function Summoner() {
     const getChampList = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/getChampList?puuid=${puuid}`
+          `https://lol-mastery-backend.onrender.com/getChampList?puuid=${puuid}`
         );
         setChampList(response.data);
       } catch (error) {

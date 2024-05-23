@@ -23,7 +23,7 @@ function App() {
 
     try {
       const response = await axios.get(
-        `http://localhost:3000/getPPUID?name=${gameName}&tag=${tagLine}`
+        `https://lol-mastery-backend.onrender.com/getPPUID?name=${gameName}&tag=${tagLine}`
       );
       const puuid = response.data.puuid;
 
