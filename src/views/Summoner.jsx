@@ -6,6 +6,8 @@ import SummonerBanner from "./components/SummonerBanner";
 import { convertTimestampToDate } from "../utils/epochConverter";
 import { importedMasteries } from "../utils/importMasteries";
 import chest from "../assets/img/chest.webp";
+import { MdNavigateBefore } from "react-icons/md";
+import { MdNavigateNext } from "react-icons/md";
 
 export default function Summoner() {
   const location = useLocation();
@@ -14,7 +16,7 @@ export default function Summoner() {
   const tagLine = location.state.tagLine;
   const [champList, setChampList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [champsPerPage, setChampsPerPage] = useState(30);
+  const [champsPerPage, setChampsPerPage] = useState(20);
   const totalPage = Math.ceil(champList.length / champsPerPage);
   const sliceData = champList.slice(
     (currentPage - 1) * champsPerPage,
@@ -81,13 +83,30 @@ export default function Summoner() {
               src={chest}
               alt="chest image"
               className={`${
-                champ.chestGranted && "opacity-50"
+                !champ.chestGranted && "opacity-50"
               } w-8 sm:w-10 md:w-14 absolute -bottom-2 right-0`}
             />
             {/* <p>{champ.championPoints}</p> */}
             {/* <p>{convertTimestampToDate(champ.lastPlayTime)}</p> */}
           </article>
         ))}
+      </div>
+      <div className="my-5 flex justify-center gap-3 md:text-xl">
+        <button onClick={() => setCurrentPage(currentPage - 1)}>
+          <MdNavigateBefore />
+        </button>
+        {Array.from({ length: totalPage }, (_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrentPage(i + 1)}
+            className={currentPage === i + 1 && "opacity-30"}
+          >
+            {i + 1}
+          </button>
+        ))}
+        <button onClick={() => setCurrentPage(currentPage + 1)}>
+          <MdNavigateNext />
+        </button>
       </div>
     </section>
   );
