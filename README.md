@@ -1,8 +1,5 @@
-# React + Vite
+## LoL Champ Mastery
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This application shows all the champions of a summoner providing the game name and the tag line, showing information like the champion level, the champion points and other information provided by the official Riot Games API.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Riot Games also provides a collection of assets and data to use for development purposes.
