@@ -111,7 +111,7 @@ export default function ChampionFilters() {
           Level
         </button>
         {activeFilters.level && (
-          <div className="absolute left-0 -bottom-16 z-10 bg-indigo-800 w-40 py-5 px-4 rounded-md shadow-lg shadow-stone-500 flex justify-between items-center">
+          <div className="absolute -left-10 sm:left-0 -bottom-16 z-10 bg-indigo-800 w-40 py-5 px-4 rounded-md shadow-lg shadow-stone-500 flex justify-between items-center">
             <MdCloseFullscreen
               className="absolute top-0 right-0 mr-2 mt-2 cursor-pointer opacity-50 hover:opacity-100 transition"
               onClick={closeFilters}
@@ -135,7 +135,7 @@ export default function ChampionFilters() {
           Chest
         </button>
         {activeFilters.chest && (
-          <div className="absolute left-0 -bottom-16 z-10 bg-indigo-800 w-40 p-5 rounded-md shadow-lg shadow-stone-500 flex justify-center gap-2">
+          <div className="absolute -left-24 sm:left-0 -bottom-16 z-10 bg-indigo-800 w-40 p-5 rounded-md shadow-lg shadow-stone-500 flex justify-center gap-2">
             <MdCloseFullscreen
               className="absolute top-0 right-0 mr-2 mt-2 cursor-pointer opacity-50 hover:opacity-100 transition"
               onClick={closeFilters}
