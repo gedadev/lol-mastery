@@ -2,8 +2,7 @@ import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { MdCloseFullscreen } from "react-icons/md";
 
-export default function ChampionFilters({ handleFilters }) {
-  const [champLevel, setChampLevel] = useState("10");
+export default function ChampionFilters({ filters, handleFilters }) {
   const [activeFilters, setActiveFilters] = useState({
     role: false,
     difficulty: false,
@@ -34,6 +33,13 @@ export default function ChampionFilters({ handleFilters }) {
     });
   };
 
+  const handleChecked = (name, set) => {
+    if (filters[set].includes(name)) {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <div className="text-xs px-4 py-2 mx-auto md:max-w-screen-xl flex gap-2 sm:gap-8 justify-around sm:justify-center">
       <div className="relative">
@@ -49,6 +55,7 @@ export default function ChampionFilters({ handleFilters }) {
             <article>
               <input
                 onChange={(e) => handleFilters(e, "role")}
+                checked={handleChecked("assassin", "role")}
                 type="checkbox"
                 id="assassin"
                 name="assassin"
@@ -60,6 +67,7 @@ export default function ChampionFilters({ handleFilters }) {
             <article>
               <input
                 onChange={(e) => handleFilters(e, "role")}
+                checked={handleChecked("fighter", "role")}
                 type="checkbox"
                 id="fighter"
                 name="fighter"
@@ -71,6 +79,7 @@ export default function ChampionFilters({ handleFilters }) {
             <article>
               <input
                 onChange={(e) => handleFilters(e, "role")}
+                checked={handleChecked("marksman", "role")}
                 type="checkbox"
                 id="marksman"
                 name="marksman"
@@ -82,6 +91,7 @@ export default function ChampionFilters({ handleFilters }) {
             <article>
               <input
                 onChange={(e) => handleFilters(e, "role")}
+                checked={handleChecked("mage", "role")}
                 type="checkbox"
                 id="mage"
                 name="mage"
@@ -93,6 +103,7 @@ export default function ChampionFilters({ handleFilters }) {
             <article>
               <input
                 onChange={(e) => handleFilters(e, "role")}
+                checked={handleChecked("support", "role")}
                 type="checkbox"
                 id="support"
                 name="support"
@@ -104,6 +115,7 @@ export default function ChampionFilters({ handleFilters }) {
             <article>
               <input
                 onChange={(e) => handleFilters(e, "role")}
+                checked={handleChecked("tank", "role")}
                 type="checkbox"
                 id="tank"
                 name="tank"
@@ -128,6 +140,7 @@ export default function ChampionFilters({ handleFilters }) {
             <article>
               <input
                 onChange={(e) => handleFilters(e, "difficulty")}
+                checked={handleChecked("easy", "difficulty")}
                 type="checkbox"
                 id="easy"
                 name="easy"
@@ -139,6 +152,7 @@ export default function ChampionFilters({ handleFilters }) {
             <article>
               <input
                 onChange={(e) => handleFilters(e, "difficulty")}
+                checked={handleChecked("medium", "difficulty")}
                 type="checkbox"
                 id="medium"
                 name="medium"
@@ -150,6 +164,7 @@ export default function ChampionFilters({ handleFilters }) {
             <article>
               <input
                 onChange={(e) => handleFilters(e, "difficulty")}
+                checked={handleChecked("hard", "difficulty")}
                 type="checkbox"
                 id="hard"
                 name="hard"
@@ -173,18 +188,22 @@ export default function ChampionFilters({ handleFilters }) {
             />
             <label htmlFor="level" className="absolute"></label>
             <input
+              value={filters.level}
               type="range"
               name="level"
               id="level"
               min="1"
               max="10"
               onChange={(e) => {
-                setChampLevel(e.target.value);
                 handleFilters(e, "level");
               }}
               className="w-24"
             />
-            <span>{champLevel === "10" ? `${champLevel}+` : champLevel}</span>
+            <span>
+              {Number(filters.level) >= 10
+                ? `${filters.level}+`
+                : filters.level}
+            </span>
           </div>
         )}
       </div>
@@ -200,6 +219,7 @@ export default function ChampionFilters({ handleFilters }) {
             />
             <label htmlFor="chest">Available:</label>
             <input
+              checked={filters.chest}
               type="checkbox"
               id="chest"
               name="chest"

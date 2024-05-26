@@ -85,7 +85,7 @@ export default function Summoner() {
   return (
     <section className="p-2 m-auto">
       <SummonerBanner gameName={gameName} tagLine={tagLine} puuid={puuid} />
-      <ChampionFilters handleFilters={handleFilters} />
+      <ChampionFilters filters={filters} handleFilters={handleFilters} />
       <div className="flex flex-wrap px-4 gap-2 justify-around max-w-screen-lg mx-auto">
         {sliceData.map((champ) => (
           <article
