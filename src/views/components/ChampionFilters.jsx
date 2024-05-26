@@ -41,26 +41,72 @@ export default function ChampionFilters() {
           Role
         </button>
         {activeFilters.role && (
-          <div className="absolute left-0 -bottom-20 z-10 bg-indigo-800 w-40 py-5 flex justify-center rounded-md shadow-lg shadow-stone-500">
+          <fieldset className="absolute left-0 origin-bottom-right mt-2 z-10 bg-indigo-800 w-40 p-5 flex flex-col gap-2 justify-center rounded-md shadow-lg shadow-stone-500">
             <MdCloseFullscreen
               className="absolute top-0 right-0 mr-2 mt-2 cursor-pointer opacity-50 hover:opacity-100 transition"
               onClick={closeFilters}
             />
-            <label htmlFor="role"></label>
-            <select
-              name="role"
-              id="role"
-              className="text-stone-900 rounded h-8 px-2 w-28 mt-1"
-            >
-              <option value={null}>Select...</option>
-              <option value="assassin">Assassin</option>
-              <option value="fighter">Fighter</option>
-              <option value="marksman">Marksman</option>
-              <option value="mage">Mage</option>
-              <option value="support">Support</option>
-              <option value="tank">Tank</option>
-            </select>
-          </div>
+            <article>
+              <input
+                type="checkbox"
+                id="assassin"
+                name="assassin"
+                value="assassin"
+                className="mr-2"
+              />
+              <label htmlFor="assassin">Assassin</label>
+            </article>
+            <article>
+              <input
+                type="checkbox"
+                id="fighter"
+                name="fighter"
+                value="fighter"
+                className="mr-2"
+              />
+              <label htmlFor="fighter">Fighter</label>
+            </article>
+            <article>
+              <input
+                type="checkbox"
+                id="marksman"
+                name="marksman"
+                value="marksman"
+                className="mr-2"
+              />
+              <label htmlFor="marksman">Marksman</label>
+            </article>
+            <article>
+              <input
+                type="checkbox"
+                id="mage"
+                name="mage"
+                value="mage"
+                className="mr-2"
+              />
+              <label htmlFor="mage">Mage</label>
+            </article>
+            <article>
+              <input
+                type="checkbox"
+                id="support"
+                name="support"
+                value="support"
+                className="mr-2"
+              />
+              <label htmlFor="support">Support</label>
+            </article>
+            <article>
+              <input
+                type="checkbox"
+                id="tank"
+                name="tank"
+                value="tank"
+                className="mr-2"
+              />
+              <label htmlFor="tank">Tank</label>
+            </article>
+          </fieldset>
         )}
       </div>
       <div className="relative">
@@ -68,7 +114,7 @@ export default function ChampionFilters() {
           Difficulty
         </button>
         {activeFilters.difficulty && (
-          <fieldset className="absolute left-0 -bottom-28 z-10 bg-indigo-800 w-40 p-5 flex flex-col gap-2 justify-center rounded-md shadow-lg shadow-stone-500">
+          <fieldset className="absolute left-0 origin-bottom-right mt-2 z-10 bg-indigo-800 w-40 p-5 flex flex-col gap-2 justify-center rounded-md shadow-lg shadow-stone-500">
             <MdCloseFullscreen
               className="absolute top-0 right-0 mr-2 mt-2 cursor-pointer opacity-50 hover:opacity-100 transition"
               onClick={closeFilters}
@@ -111,7 +157,7 @@ export default function ChampionFilters() {
           Level
         </button>
         {activeFilters.level && (
-          <div className="absolute -left-10 sm:left-0 -bottom-16 z-10 bg-indigo-800 w-40 py-5 px-4 rounded-md shadow-lg shadow-stone-500 flex justify-between items-center">
+          <div className="absolute -left-10 sm:left-0 origin-bottom-right mt-2 z-10 bg-indigo-800 w-40 py-5 px-4 rounded-md shadow-lg shadow-stone-500 flex justify-between items-center">
             <MdCloseFullscreen
               className="absolute top-0 right-0 mr-2 mt-2 cursor-pointer opacity-50 hover:opacity-100 transition"
               onClick={closeFilters}
@@ -124,9 +170,11 @@ export default function ChampionFilters() {
               min="1"
               max="10"
               onChange={(e) => setChampLevel(e.target.value)}
-              className="w-24 mt-1"
+              className="w-24 mt-2"
             />
-            <span>{champLevel === "10" ? `${champLevel}+` : champLevel}</span>
+            <span className="mt-2">
+              {champLevel === "10" ? `${champLevel}+` : champLevel}
+            </span>
           </div>
         )}
       </div>
@@ -135,7 +183,7 @@ export default function ChampionFilters() {
           Chest
         </button>
         {activeFilters.chest && (
-          <div className="absolute -left-24 sm:left-0 -bottom-16 z-10 bg-indigo-800 w-40 p-5 rounded-md shadow-lg shadow-stone-500 flex justify-center gap-2">
+          <div className="absolute -left-24 sm:left-0 origin-bottom-right mt-2 z-10 bg-indigo-800 w-40 p-5 rounded-md shadow-lg shadow-stone-500 flex justify-center gap-2">
             <MdCloseFullscreen
               className="absolute top-0 right-0 mr-2 mt-2 cursor-pointer opacity-50 hover:opacity-100 transition"
               onClick={closeFilters}
