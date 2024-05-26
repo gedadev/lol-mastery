@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { regions } from "./utils/regions";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { APIContext } from "./APIContext";
 
 function App() {
   const [region, setRegion] = useState("NA1");
@@ -9,6 +10,7 @@ function App() {
   const [tagLine, setTagLine] = useState("");
   const [disabledButton, setDisabledButton] = useState(true);
   const navigate = useNavigate();
+  const { serverURL } = useContext(APIContext);
 
   useEffect(() => {
     if (gameName && tagLine) {
@@ -23,7 +25,7 @@ function App() {
 
     try {
       const response = await axios.get(
-        `https://lol-mastery-backend.onrender.com/getPPUID?name=${gameName}&tag=${tagLine}`
+        `${serverURL}/getPPUID?name=${gameName}&tag=${tagLine}`
       );
       const puuid = response.data.puuid;
 

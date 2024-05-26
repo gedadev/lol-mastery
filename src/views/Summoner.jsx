@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import championFull from "../assets/data/championFull.json";
 import SummonerBanner from "./components/SummonerBanner";
 import { convertTimestampToDate } from "../utils/epochConverter";
@@ -8,6 +8,8 @@ import { importedMasteries } from "../utils/importMasteries";
 import chest from "../assets/img/chest.webp";
 import { MdNavigateBefore } from "react-icons/md";
 import { MdNavigateNext } from "react-icons/md";
+import ChampionFilters from "./components/ChampionFilters";
+import { APIContext } from "../APIContext";
 
 export default function Summoner() {
   const location = useLocation();
@@ -22,12 +24,19 @@ export default function Summoner() {
     (currentPage - 1) * champsPerPage,
     currentPage * champsPerPage
   );
+  const [filters, setFilters] = useState({
+    role: [],
+    difficulty: [],
+    level: 10,
+    chest: false,
+  });
+  const { serverURL } = useContext(APIContext);
 
   useEffect(() => {
     const getChampList = async () => {
       try {
         const response = await axios.get(
-          `https://lol-mastery-backend.onrender.com/getChampList?puuid=${puuid}`
+          `${serverURL}/getChampList?puuid=${puuid}`
         );
         setChampList(response.data);
       } catch (error) {
@@ -36,7 +45,7 @@ export default function Summoner() {
     };
 
     getChampList();
-  }, [puuid]);
+  }, [puuid, serverURL]);
 
   const getChampData = (champId) => {
     const champData = Object.values(championFull.data).find(
@@ -55,9 +64,12 @@ export default function Summoner() {
     return importedMasteries[level - 1];
   };
 
+  const handleFilters = () => {};
+
   return (
     <section className="p-2 m-auto">
       <SummonerBanner gameName={gameName} tagLine={tagLine} puuid={puuid} />
+      <ChampionFilters handleFilters={handleFilters} />
       <div className="flex flex-wrap px-4 gap-2 justify-around max-w-screen-lg mx-auto">
         {sliceData.map((champ) => (
           <article

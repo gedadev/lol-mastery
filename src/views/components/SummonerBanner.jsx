@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { convertTimestampToDate } from "../../utils/epochConverter";
+import { APIContext } from "../../APIContext";
 
 export default function SummonerBanner({ gameName, tagLine, puuid }) {
   const [summonerInfo, setSummonerInfo] = useState({
@@ -11,12 +12,13 @@ export default function SummonerBanner({ gameName, tagLine, puuid }) {
     revisionDate: null,
     summonerLevel: null,
   });
+  const { serverURL } = useContext(APIContext);
 
   useEffect(() => {
     const getIcon = async () => {
       try {
         const summonerData = await axios.get(
-          `https://lol-mastery-backend.onrender.com/getSummonerInfo?puuid=${puuid}`
+          `${serverURL}/getSummonerInfo?puuid=${puuid}`
         );
         setSummonerInfo((info) => ({
           ...info,
@@ -30,7 +32,7 @@ export default function SummonerBanner({ gameName, tagLine, puuid }) {
     };
 
     getIcon();
-  }, [puuid]);
+  }, [puuid, serverURL]);
 
   return (
     <section className="mx-auto my-6 px-5 md:max-w-screen-xl flex gap-5 justify-between sm:justify-start">
