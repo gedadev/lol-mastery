@@ -64,7 +64,23 @@ export default function Summoner() {
     return importedMasteries[level - 1];
   };
 
-  const handleFilters = () => {};
+  const handleFilters = (e, fieldset) => {
+    setFilters((prev) => {
+      if (Array.isArray(prev[fieldset])) {
+        if (prev[fieldset].includes(e.target.value)) {
+          return {
+            ...prev,
+            [fieldset]: prev[fieldset].filter(
+              (item) => item !== e.target.value
+            ),
+          };
+        }
+        return { ...prev, [fieldset]: [...prev[fieldset], e.target.value] };
+      }
+      if (fieldset === "chest") return { ...prev, [fieldset]: !prev[fieldset] };
+      return { ...prev, [fieldset]: e.target.value };
+    });
+  };
 
   return (
     <section className="p-2 m-auto">

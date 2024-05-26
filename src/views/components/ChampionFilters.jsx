@@ -2,7 +2,7 @@ import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { MdCloseFullscreen } from "react-icons/md";
 
-export default function ChampionFilters() {
+export default function ChampionFilters({ handleFilters }) {
   const [champLevel, setChampLevel] = useState("10");
   const [activeFilters, setActiveFilters] = useState({
     role: false,
@@ -48,6 +48,7 @@ export default function ChampionFilters() {
             />
             <article>
               <input
+                onChange={(e) => handleFilters(e, "role")}
                 type="checkbox"
                 id="assassin"
                 name="assassin"
@@ -58,6 +59,7 @@ export default function ChampionFilters() {
             </article>
             <article>
               <input
+                onChange={(e) => handleFilters(e, "role")}
                 type="checkbox"
                 id="fighter"
                 name="fighter"
@@ -68,6 +70,7 @@ export default function ChampionFilters() {
             </article>
             <article>
               <input
+                onChange={(e) => handleFilters(e, "role")}
                 type="checkbox"
                 id="marksman"
                 name="marksman"
@@ -78,6 +81,7 @@ export default function ChampionFilters() {
             </article>
             <article>
               <input
+                onChange={(e) => handleFilters(e, "role")}
                 type="checkbox"
                 id="mage"
                 name="mage"
@@ -88,6 +92,7 @@ export default function ChampionFilters() {
             </article>
             <article>
               <input
+                onChange={(e) => handleFilters(e, "role")}
                 type="checkbox"
                 id="support"
                 name="support"
@@ -98,6 +103,7 @@ export default function ChampionFilters() {
             </article>
             <article>
               <input
+                onChange={(e) => handleFilters(e, "role")}
                 type="checkbox"
                 id="tank"
                 name="tank"
@@ -121,6 +127,7 @@ export default function ChampionFilters() {
             />
             <article>
               <input
+                onChange={(e) => handleFilters(e, "difficulty")}
                 type="checkbox"
                 id="easy"
                 name="easy"
@@ -131,6 +138,7 @@ export default function ChampionFilters() {
             </article>
             <article>
               <input
+                onChange={(e) => handleFilters(e, "difficulty")}
                 type="checkbox"
                 id="medium"
                 name="medium"
@@ -141,6 +149,7 @@ export default function ChampionFilters() {
             </article>
             <article>
               <input
+                onChange={(e) => handleFilters(e, "difficulty")}
                 type="checkbox"
                 id="hard"
                 name="hard"
@@ -157,7 +166,7 @@ export default function ChampionFilters() {
           Level
         </button>
         {activeFilters.level && (
-          <div className="absolute -left-10 sm:left-0 origin-bottom-right mt-2 z-10 bg-indigo-800 w-40 py-5 px-4 rounded-md shadow-lg shadow-stone-500 flex justify-between items-center">
+          <div className="absolute right-0 sm:left-0 origin-bottom-right mt-2 z-10 bg-indigo-800 w-40 py-6 px-4 rounded-md shadow-lg shadow-stone-500 flex justify-between items-center">
             <MdCloseFullscreen
               className="absolute top-0 right-0 mr-2 mt-2 cursor-pointer opacity-50 hover:opacity-100 transition"
               onClick={closeFilters}
@@ -169,12 +178,13 @@ export default function ChampionFilters() {
               id="level"
               min="1"
               max="10"
-              onChange={(e) => setChampLevel(e.target.value)}
-              className="w-24 mt-2"
+              onChange={(e) => {
+                setChampLevel(e.target.value);
+                handleFilters(e, "level");
+              }}
+              className="w-24"
             />
-            <span className="mt-2">
-              {champLevel === "10" ? `${champLevel}+` : champLevel}
-            </span>
+            <span>{champLevel === "10" ? `${champLevel}+` : champLevel}</span>
           </div>
         )}
       </div>
@@ -183,19 +193,23 @@ export default function ChampionFilters() {
           Chest
         </button>
         {activeFilters.chest && (
-          <div className="absolute -left-24 sm:left-0 origin-bottom-right mt-2 z-10 bg-indigo-800 w-40 p-5 rounded-md shadow-lg shadow-stone-500 flex justify-center gap-2">
+          <div className="absolute right-0 sm:left-0 origin-bottom-right mt-2 z-10 bg-indigo-800 w-40 p-6 rounded-md shadow-lg shadow-stone-500 flex justify-center gap-2">
             <MdCloseFullscreen
               className="absolute top-0 right-0 mr-2 mt-2 cursor-pointer opacity-50 hover:opacity-100 transition"
               onClick={closeFilters}
             />
-            <label htmlFor="chest" className="mt-1">
-              Available:
-            </label>
-            <input type="checkbox" id="chest" name="chest" value="chest" />
+            <label htmlFor="chest">Available:</label>
+            <input
+              type="checkbox"
+              id="chest"
+              name="chest"
+              value="chest"
+              onChange={(e) => handleFilters(e, "chest")}
+            />
           </div>
         )}
       </div>
-      {/* <CiSearch className="text-2xl" /> */}
+      <CiSearch className="text-2xl" />
     </div>
   );
 }
