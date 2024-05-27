@@ -20,7 +20,8 @@ export default function Summoner() {
   const [currentPage, setCurrentPage] = useState(1);
   const [champsPerPage, setChampsPerPage] = useState(20);
   const totalPage = Math.ceil(champList.length / champsPerPage);
-  const sliceData = champList.slice(
+  const [filteredChamps, setFilteredChamps] = useState([]);
+  const sliceData = filteredChamps.slice(
     (currentPage - 1) * champsPerPage,
     currentPage * champsPerPage
   );
@@ -47,6 +48,61 @@ export default function Summoner() {
     getChampList();
   }, [puuid, serverURL]);
 
+  useEffect(() => {
+    const filterChamps = () => {
+      const updatedList = champList.filter((champ) => {
+        const roleFilter = () => {
+          if (filters.role.length > 0) {
+            const champRoles = getChampData(String(champ.championId)).role.map(
+              (role) => role.toLowerCase()
+            );
+
+            return filters.role.every((role) => champRoles.includes(role));
+          }
+        };
+        const difficultyFilter = () => {
+          if (filters.difficulty.length > 0) {
+            const champDifficulty = getChampData(
+              String(champ.championId)
+            ).difficulty;
+            const convertedDifficulty = () => {
+              let difficultyValues = [];
+              filters.difficulty.forEach((diff) => {
+                if (diff === "easy") difficultyValues.push(1, 2, 3);
+                if (diff === "medium") difficultyValues.push(4, 5, 6, 7);
+                if (diff === "hard") difficultyValues.push(8, 9, 10);
+              });
+              return difficultyValues;
+            };
+
+            return convertedDifficulty().includes(champDifficulty);
+          }
+        };
+        const levelFilter = () =>
+          filters.level >= Math.min(champ.championLevel, 10);
+
+        const chestFilter = () => {
+          if (filters.chest) return !champ.chestGranted;
+        };
+        const validChamp = [
+          roleFilter(),
+          difficultyFilter(),
+          levelFilter(),
+          chestFilter(),
+        ].reduce((acc, curr) => {
+          if (curr === undefined) return acc;
+          return acc && curr;
+        }, true);
+
+        return validChamp;
+      });
+
+      setFilteredChamps(updatedList);
+    };
+
+    filterChamps();
+  }, [filters, champList]);
+
   const getChampData = (champId) => {
     const champData = Object.values(championFull.data).find(
       (champ) => champ.key === champId
@@ -56,6 +112,8 @@ export default function Summoner() {
       name: champData.name,
       title: champData.title,
       image: champData.id,
+      role: champData.tags,
+      difficulty: champData.info.difficulty,
     };
   };
 
