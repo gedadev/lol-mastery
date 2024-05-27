@@ -6,8 +6,8 @@ import { APIContext } from "./APIContext";
 
 function App() {
   const [region, setRegion] = useState("NA1");
-  const [gameName, setGameName] = useState("");
-  const [tagLine, setTagLine] = useState("");
+  const [gameName, setGameName] = useState("yukino cat");
+  const [tagLine, setTagLine] = useState("cat");
   const [disabledButton, setDisabledButton] = useState(true);
   const navigate = useNavigate();
   const { serverURL } = useContext(APIContext);
@@ -91,7 +91,7 @@ function App() {
           </button>
         </form>
       </main>
-      <footer className="absolute bottom-0">
+      <footer className="absolute bottom-0 left-0 min-w-full">
         <p className="text-center text-xs text-opacity-50 text-stone-200 px-10 py-4">
           This website is not endorsed by Riot Games and does not reflect the
           views or opinions of Riot Games or anyone officially involved in
