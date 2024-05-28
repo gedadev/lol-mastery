@@ -11,6 +11,7 @@ function App() {
   const [disabledButton, setDisabledButton] = useState(true);
   const navigate = useNavigate();
   const { serverURL } = useContext(APIContext);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (gameName && tagLine) {
@@ -22,6 +23,7 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       const response = await axios.get(
@@ -29,6 +31,7 @@ function App() {
       );
       const puuid = response.data.puuid;
 
+      setIsLoading(false);
       navigate("/summoner", { state: { puuid, gameName, tagLine } });
     } catch (error) {
       console.log(error);
@@ -38,6 +41,7 @@ function App() {
   return (
     <>
       <main>
+        {console.log(isLoading)}
         <form
           className="flex items-center flex-col my-20 gap-5 md:flex-row md:justify-center md:relative"
           onSubmit={handleSubmit}
@@ -84,10 +88,10 @@ function App() {
           </div>
           <button
             type="submit"
-            disabled={disabledButton}
+            disabled={disabledButton || isLoading}
             className="rounded bg-blue-900 px-5 py-1 md:absolute md:mt-32 lg:mt-28 hover:shadow hover:shadow-stone-300 hover:bg-blue-600 transition disabled:opacity-50"
           >
-            Search
+            {isLoading ? "Loading..." : "Search"}
           </button>
         </form>
       </main>
