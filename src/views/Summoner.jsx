@@ -19,8 +19,8 @@ export default function Summoner() {
   const [champList, setChampList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [champsPerPage, setChampsPerPage] = useState(20);
-  const totalPage = Math.ceil(champList.length / champsPerPage);
   const [filteredChamps, setFilteredChamps] = useState([]);
+  const totalPage = Math.ceil(filteredChamps.length / champsPerPage);
   const sliceData = filteredChamps.slice(
     (currentPage - 1) * champsPerPage,
     currentPage * champsPerPage
