@@ -32,6 +32,7 @@ export default function Summoner() {
     chest: false,
   });
   const { serverURL } = useContext(APIContext);
+  const [activeStats, setActiveStats] = useState(false);
 
   useEffect(() => {
     const getChampList = async () => {
@@ -154,6 +155,10 @@ export default function Summoner() {
     });
   };
 
+  const handleStats = () => {
+    setActiveStats((prev) => !prev);
+  };
+
   return (
     <section className="p-2 m-auto">
       <SummonerBanner gameName={gameName} tagLine={tagLine} puuid={puuid} />
@@ -163,6 +168,7 @@ export default function Summoner() {
         handleChampsPerPage={handleChampsPerPage}
         champsPerPage={champsPerPage}
         resetFilters={resetFilters}
+        handleStats={handleStats}
       />
       <div className="flex flex-wrap px-4 gap-2 justify-around max-w-screen-lg mx-auto">
         {sliceData.map((champ) => (
@@ -181,7 +187,11 @@ export default function Summoner() {
                 alt={`${getChampData(String(champ.championId)).name} image`}
                 className="w-24 sm:w-32 md:w-44"
               />
-              <div className="absolute bottom-0 h-full w-full rounded bg-stone-800/80 transition flex flex-col p-2 md:p-4 text-center overflow-auto overflow-x-hidden">
+              <div
+                className={`${
+                  activeStats ? "opacity-100" : "opacity-0"
+                } absolute bottom-0 h-full w-full rounded bg-stone-800/80 transition flex flex-col p-2 md:p-4 text-center overflow-auto overflow-x-hidden ease-in-out	duration-300`}
+              >
                 <p className="text-sm md:text-lg mt-1">
                   {getChampData(String(champ.championId)).title}
                 </p>
