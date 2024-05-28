@@ -140,10 +140,20 @@ export default function Summoner() {
     });
   };
 
+  const handleChampsPerPage = (e) => {
+    setChampsPerPage(Number(e.target.value));
+    setCurrentPage(1);
+  };
+
   return (
     <section className="p-2 m-auto">
       <SummonerBanner gameName={gameName} tagLine={tagLine} puuid={puuid} />
-      <ChampionFilters filters={filters} handleFilters={handleFilters} />
+      <ChampionFilters
+        filters={filters}
+        handleFilters={handleFilters}
+        handleChampsPerPage={handleChampsPerPage}
+        champsPerPage={champsPerPage}
+      />
       <div className="flex flex-wrap px-4 gap-2 justify-around max-w-screen-lg mx-auto">
         {sliceData.map((champ) => (
           <article

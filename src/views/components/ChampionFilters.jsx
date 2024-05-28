@@ -2,7 +2,12 @@ import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { MdCloseFullscreen } from "react-icons/md";
 
-export default function ChampionFilters({ filters, handleFilters }) {
+export default function ChampionFilters({
+  filters,
+  handleFilters,
+  handleChampsPerPage,
+  champsPerPage,
+}) {
   const [activeFilters, setActiveFilters] = useState({
     role: false,
     difficulty: false,
@@ -243,6 +248,8 @@ export default function ChampionFilters({ filters, handleFilters }) {
             name="champsPerPage"
             id="champsPerPage"
             className="rounded-md p-1 bg-stone-800/80 transition ml-1"
+            onChange={handleChampsPerPage}
+            value={champsPerPage}
           >
             <option value="10">10</option>
             <option value="20">20</option>
