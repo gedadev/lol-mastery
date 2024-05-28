@@ -153,13 +153,41 @@ export default function Summoner() {
             <h2 className="text-center my-2">
               {getChampData(String(champ.championId)).name}
             </h2>
-            <img
-              src={`https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${
-                getChampData(String(champ.championId)).image
-              }_0.jpg`}
-              alt={`${getChampData(String(champ.championId)).name} image`}
-              className="w-24 sm:w-32 md:w-44"
-            />
+            <div className="relative">
+              <img
+                src={`https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${
+                  getChampData(String(champ.championId)).image
+                }_0.jpg`}
+                alt={`${getChampData(String(champ.championId)).name} image`}
+                className="w-24 sm:w-32 md:w-44"
+              />
+              <div className="absolute bottom-0 h-full w-full rounded bg-stone-800/80 transition flex flex-col p-2 md:p-4 text-center overflow-auto overflow-x-hidden">
+                <p className="text-sm md:text-lg mt-1">
+                  {getChampData(String(champ.championId)).title}
+                </p>
+                <div className="flex justify-around text-xs flex-wrap opacity-70 mb-1">
+                  {getChampData(String(champ.championId)).role.map((role) => (
+                    <p key={role}>{role}</p>
+                  ))}
+                </div>
+                <p className="text-xs md:text-sm opacity-70">
+                  Level: {champ.championLevel}
+                </p>
+                <p className="text-xs md:text-sm opacity-70">
+                  Points: {champ.championPoints}
+                </p>
+                <p className="mt-5 text-xs md:text-sm opacity-60">
+                  Difficulty level:
+                  {getChampData(String(champ.championId)).difficulty}
+                </p>
+                <p className="text-xs md:text-sm opacity-60">
+                  Last Played: {convertTimestampToDate(champ.lastPlayTime)}
+                </p>
+                <p className="text-xs md:text-sm opacity-60">
+                  Chest: {champ.chestGranted ? "Granted" : "Available"}
+                </p>
+              </div>
+            </div>
             <img
               src={getSrc(champ.championLevel)}
               alt="mastery banner"
@@ -172,8 +200,6 @@ export default function Summoner() {
                 !champ.chestGranted && "opacity-50"
               } w-8 sm:w-10 md:w-14 absolute -bottom-2 right-0`}
             />
-            {/* <p>{champ.championPoints}</p> */}
-            {/* <p>{convertTimestampToDate(champ.lastPlayTime)}</p> */}
           </article>
         ))}
       </div>
