@@ -145,6 +145,15 @@ export default function Summoner() {
     setCurrentPage(1);
   };
 
+  const resetFilters = () => {
+    setFilters({
+      role: [],
+      difficulty: [],
+      level: 10,
+      chest: false,
+    });
+  };
+
   return (
     <section className="p-2 m-auto">
       <SummonerBanner gameName={gameName} tagLine={tagLine} puuid={puuid} />
@@ -153,6 +162,7 @@ export default function Summoner() {
         handleFilters={handleFilters}
         handleChampsPerPage={handleChampsPerPage}
         champsPerPage={champsPerPage}
+        resetFilters={resetFilters}
       />
       <div className="flex flex-wrap px-4 gap-2 justify-around max-w-screen-lg mx-auto">
         {sliceData.map((champ) => (

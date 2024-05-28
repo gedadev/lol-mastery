@@ -7,6 +7,7 @@ export default function ChampionFilters({
   handleFilters,
   handleChampsPerPage,
   champsPerPage,
+  resetFilters,
 }) {
   const [activeFilters, setActiveFilters] = useState({
     role: false,
@@ -258,7 +259,7 @@ export default function ChampionFilters({
             <option value="50">50</option>
           </select>
         </div>
-        <button>Reset Filters</button>
+        <button onClick={resetFilters}>Reset Filters</button>
         <button>Show Stats</button>
         <div>
           <input
