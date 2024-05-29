@@ -59,9 +59,9 @@ export default function ChampionFilters({
           </button>
           <fieldset
             className={`${
-              !activeFilters.role ? "pointer-events-none" : ""
-            } opacity-${
-              activeFilters.role ? "100" : "0"
+              activeFilters.role
+                ? "pointer-events-auto opacity-100"
+                : "pointer-events-none opacity-0"
             } ease-linear duration-200 absolute left-0 origin-bottom-right mt-2 z-10 bg-indigo-800 w-40 p-5 flex flex-col gap-2 justify-center rounded-md shadow-lg shadow-stone-500`}
           >
             <IoCloseCircleSharp
@@ -148,9 +148,9 @@ export default function ChampionFilters({
           </button>
           <fieldset
             className={`${
-              !activeFilters.difficulty ? "pointer-events-none" : ""
-            } opacity-${
-              activeFilters.difficulty ? "100" : "0"
+              activeFilters.difficulty
+                ? "pointer-events-auto opacity-100"
+                : "pointer-events-none opacity-0"
             } ease-linear duration-200 absolute left-0 origin-bottom-right mt-2 z-10 bg-indigo-800 w-40 p-5 flex flex-col gap-2 justify-center rounded-md shadow-lg shadow-stone-500`}
           >
             <IoCloseCircleSharp
@@ -201,9 +201,9 @@ export default function ChampionFilters({
           </button>
           <div
             className={`${
-              !activeFilters.level ? "pointer-events-none" : ""
-            } opacity-${
-              activeFilters.level ? "100" : "0"
+              activeFilters.level
+                ? "pointer-events-auto opacity-100"
+                : "pointer-events-none opacity-0"
             } ease-linear duration-200 absolute right-0 sm:left-0 origin-bottom-right mt-2 z-10 bg-indigo-800 w-40 py-6 px-4 rounded-md shadow-lg shadow-stone-500 flex justify-between items-center`}
           >
             <IoCloseCircleSharp
@@ -236,9 +236,9 @@ export default function ChampionFilters({
           </button>
           <div
             className={`${
-              !activeFilters.chest ? "pointer-events-none" : ""
-            } opacity-${
-              activeFilters.chest ? "100" : "0"
+              activeFilters.chest
+                ? "pointer-events-auto opacity-100"
+                : "pointer-events-none opacity-0"
             } ease-linear duration-200 absolute right-0 sm:left-0 origin-bottom-right mt-2 z-10 bg-indigo-800 w-40 p-6 rounded-md shadow-lg shadow-stone-500 flex justify-center gap-2`}
           >
             <IoCloseCircleSharp
@@ -282,12 +282,10 @@ export default function ChampionFilters({
             name="search"
             id="search"
             className={`absolute ${
-              !activeSearch ? "pointer-events-none" : ""
-            } left-1/2 -translate-x-1/2 w-${activeSearch ? "64" : "0"} h-${
-              activeSearch ? "8" : "0"
-            } p-${activeSearch ? "2" : "0"} opacity-${
-              activeSearch ? "100" : "0"
-            } rounded-md text-stone-800 ease-in-out	duration-300`}
+              activeSearch
+                ? "pointer-events-auto w-64 h-8 p-2 opacity-100"
+                : "pointer-events-none w-0 h-0 p-0 opacity-0"
+            } left-1/2 -translate-x-1/2 rounded-md text-stone-800 ease-in-out	duration-300`}
             value={filters.search}
             onChange={(e) => handleFilters(e, "search")}
           />

@@ -239,7 +239,7 @@ export default function Summoner() {
               src={chest}
               alt="chest image"
               className={`${
-                !champ.chestGranted && "opacity-50"
+                !champ.chestGranted ? "opacity-50" : "opacity-100"
               } w-8 sm:w-10 md:w-14 absolute -bottom-2 right-0`}
             />
           </article>
@@ -253,7 +253,11 @@ export default function Summoner() {
           <button
             key={i}
             onClick={() => setCurrentPage(i + 1)}
-            className={currentPage === i + 1 && "opacity-30"}
+            className={
+              currentPage === i + 1
+                ? "opacity-30 pointer-events-none"
+                : "opacity-100 pointer-events-auto"
+            }
           >
             {i + 1}
           </button>
