@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
-import { MdCloseFullscreen } from "react-icons/md";
+import { IoCloseCircleSharp } from "react-icons/io5";
 
 export default function ChampionFilters({
   filters,
@@ -48,8 +48,9 @@ export default function ChampionFilters({
     return false;
   };
 
-  const handleSearch = () => {
-    setActiveSearch((prev) => !prev);
+  const resetSearch = () => {
+    setActiveSearch(!activeSearch);
+    handleFilters({ target: { value: "" } }, "search");
   };
 
   return (
@@ -61,7 +62,7 @@ export default function ChampionFilters({
           </button>
           {activeFilters.role && (
             <fieldset className="absolute left-0 origin-bottom-right mt-2 z-10 bg-indigo-800 w-40 p-5 flex flex-col gap-2 justify-center rounded-md shadow-lg shadow-stone-500">
-              <MdCloseFullscreen
+              <IoCloseCircleSharp
                 className="absolute top-0 right-0 mr-2 mt-2 cursor-pointer opacity-50 hover:opacity-100 transition"
                 onClick={closeFilters}
               />
@@ -146,7 +147,7 @@ export default function ChampionFilters({
           </button>
           {activeFilters.difficulty && (
             <fieldset className="absolute left-0 origin-bottom-right mt-2 z-10 bg-indigo-800 w-40 p-5 flex flex-col gap-2 justify-center rounded-md shadow-lg shadow-stone-500">
-              <MdCloseFullscreen
+              <IoCloseCircleSharp
                 className="absolute top-0 right-0 mr-2 mt-2 cursor-pointer opacity-50 hover:opacity-100 transition"
                 onClick={closeFilters}
               />
@@ -195,7 +196,7 @@ export default function ChampionFilters({
           </button>
           {activeFilters.level && (
             <div className="absolute right-0 sm:left-0 origin-bottom-right mt-2 z-10 bg-indigo-800 w-40 py-6 px-4 rounded-md shadow-lg shadow-stone-500 flex justify-between items-center">
-              <MdCloseFullscreen
+              <IoCloseCircleSharp
                 className="absolute top-0 right-0 mr-2 mt-2 cursor-pointer opacity-50 hover:opacity-100 transition"
                 onClick={closeFilters}
               />
@@ -226,7 +227,7 @@ export default function ChampionFilters({
           </button>
           {activeFilters.chest && (
             <div className="absolute right-0 sm:left-0 origin-bottom-right mt-2 z-10 bg-indigo-800 w-40 p-6 rounded-md shadow-lg shadow-stone-500 flex justify-center gap-2">
-              <MdCloseFullscreen
+              <IoCloseCircleSharp
                 className="absolute top-0 right-0 mr-2 mt-2 cursor-pointer opacity-50 hover:opacity-100 transition"
                 onClick={closeFilters}
               />
@@ -267,16 +268,27 @@ export default function ChampionFilters({
             type="text"
             name="search"
             id="search"
-            className={`absolute left-1/2 -translate-x-1/2 w-${
-              activeSearch ? "60" : "0"
+            className={`absolute pointer-events-none left-1/2 -translate-x-1/2 w-${
+              activeSearch ? "64" : "0"
             } h-${activeSearch ? "8" : "0"} p-${
               activeSearch ? "2" : "0"
+            } opacity-${
+              activeSearch ? "100" : "0"
             } rounded-md text-stone-800 ease-in-out	duration-300`}
+            value={filters.search}
+            onChange={(e) => handleFilters(e, "search")}
           />
-          <CiSearch
-            className="text-2xl cursor-pointer"
-            onClick={handleSearch}
-          />
+          {activeSearch ? (
+            <IoCloseCircleSharp
+              className="text-2xl cursor-pointer text-red-600"
+              onClick={resetSearch}
+            />
+          ) : (
+            <CiSearch
+              className="text-2xl cursor-pointer"
+              onClick={() => setActiveSearch(!activeSearch)}
+            />
+          )}
         </div>
       </div>
     </>

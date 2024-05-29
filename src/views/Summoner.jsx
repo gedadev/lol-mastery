@@ -30,6 +30,7 @@ export default function Summoner() {
     difficulty: [],
     level: 10,
     chest: false,
+    search: "",
   });
   const { serverURL } = useContext(APIContext);
   const [activeStats, setActiveStats] = useState(false);
@@ -85,11 +86,21 @@ export default function Summoner() {
         const chestFilter = () => {
           if (filters.chest) return !champ.chestGranted;
         };
+        const searchFilter = () => {
+          if (filters.search !== "") {
+            const champName = getChampData(String(champ.championId)).name;
+            return champName
+              .toLowerCase()
+              .includes(filters.search.toLowerCase());
+          }
+          return true;
+        };
         const validChamp = [
           roleFilter(),
           difficultyFilter(),
           levelFilter(),
           chestFilter(),
+          searchFilter(),
         ].reduce((acc, curr) => {
           if (curr === undefined) return acc;
           return acc && curr;
@@ -152,6 +163,7 @@ export default function Summoner() {
       difficulty: [],
       level: 10,
       chest: false,
+      search: "",
     });
   };
 
