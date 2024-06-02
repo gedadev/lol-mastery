@@ -2,7 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { regions } from "./utils/regions";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { APIContext } from "./APIContext";
+import { APIContext } from "./context/APIContext";
+import { SummonerContext } from "./context/SummonerContext";
 
 function App() {
   const [region, setRegion] = useState("NA1");
@@ -11,6 +12,7 @@ function App() {
   const [disabledButton, setDisabledButton] = useState(true);
   const navigate = useNavigate();
   const { serverURL } = useContext(APIContext);
+  const { saveSummonerData } = useContext(SummonerContext);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -31,8 +33,9 @@ function App() {
       );
       const puuid = response.data.puuid;
 
+      saveSummonerData(puuid, gameName, tagLine);
       setIsLoading(false);
-      navigate("/summoner", { state: { puuid, gameName, tagLine } });
+      navigate("/summoner");
     } catch (error) {
       console.log(error);
     }
@@ -41,7 +44,6 @@ function App() {
   return (
     <>
       <main>
-        {console.log(isLoading)}
         <form
           className="flex items-center flex-col my-20 gap-5 md:flex-row md:justify-center md:relative"
           onSubmit={handleSubmit}

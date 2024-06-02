@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { convertTimestampToDate } from "../../utils/epochConverter";
-import { APIContext } from "../../APIContext";
+import { APIContext } from "../../context/APIContext";
 
 export default function SummonerBanner({ gameName, tagLine, puuid }) {
   const [summonerInfo, setSummonerInfo] = useState({

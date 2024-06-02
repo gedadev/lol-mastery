@@ -1,37 +1,19 @@
-import { useLocation } from "react-router-dom";
-import axios from "axios";
-import { useContext, useEffect, useState } from "react";
 import SummonerBanner from "./components/SummonerBanner";
-import { APIContext } from "../APIContext";
-import ChampionCardContainer from "./components/ChampionCardContainer";
+import { Outlet } from "react-router-dom";
+import { useContext } from "react";
+import { SummonerContext } from "../context/SummonerContext";
 
 export default function Summoner() {
-  const location = useLocation();
-  const puuid = location.state.puuid;
-  const gameName = location.state.gameName;
-  const tagLine = location.state.tagLine;
-  const [champList, setChampList] = useState([]);
-  const { serverURL } = useContext(APIContext);
-
-  useEffect(() => {
-    const getChampList = async () => {
-      try {
-        const response = await axios.get(
-          `${serverURL}/getChampList?puuid=${puuid}`
-        );
-        setChampList(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    getChampList();
-  }, [puuid, serverURL]);
+  const { summonerData } = useContext(SummonerContext);
 
   return (
     <section className="p-2 m-auto">
-      <SummonerBanner gameName={gameName} tagLine={tagLine} puuid={puuid} />
-      <ChampionCardContainer champList={champList} />
+      <SummonerBanner
+        gameName={summonerData.gameName}
+        tagLine={summonerData.tagLine}
+        puuid={summonerData.puuid}
+      />
+      <Outlet />
     </section>
   );
 }

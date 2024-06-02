@@ -3,12 +3,17 @@ import chest from "../../assets/img/chest.webp";
 import { Link } from "react-router-dom";
 import { importedMasteries } from "../../utils/importMasteries.js";
 import ChampionFilters from "./ChampionFilters.jsx";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MdNavigateBefore } from "react-icons/md";
 import { MdNavigateNext } from "react-icons/md";
-import championFull from "../../assets/data/championFull.json";
+// import championFull from "../../assets/data/championFull.json";
+import { APIContext } from "../../context/APIContext.jsx";
+import axios from "axios";
+import { SummonerContext } from "../../context/SummonerContext";
 
-export default function ChampionCardContainer({ champList }) {
+export default function ChampionCardContainer() {
+  const [champList, setChampList] = useState([]);
+  const { serverURL } = useContext(APIContext);
   const [filters, setFilters] = useState({
     role: [],
     difficulty: [],
@@ -25,6 +30,22 @@ export default function ChampionCardContainer({ champList }) {
     currentPage * champsPerPage
   );
   const [activeStats, setActiveStats] = useState(false);
+  const { summonerData, getChampData } = useContext(SummonerContext);
+
+  useEffect(() => {
+    const getChampList = async () => {
+      try {
+        const response = await axios.get(
+          `${serverURL}/getChampList?puuid=${summonerData.puuid}`
+        );
+        setChampList(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getChampList();
+  }, [summonerData, serverURL]);
 
   useEffect(() => {
     const filterChamps = () => {
@@ -89,21 +110,22 @@ export default function ChampionCardContainer({ champList }) {
     };
 
     filterChamps();
-  }, [filters, champList]);
+  }, [filters, champList, getChampData]);
 
-  const getChampData = (champId) => {
-    const champData = Object.values(championFull.data).find(
-      (champ) => champ.key === champId
-    );
+  // const getChampData = (champId) => {
+  //   const champData = Object.values(championFull.data).find(
+  //     (champ) => champ.key === champId
+  //   );
 
-    return {
-      name: champData.name,
-      title: champData.title,
-      image: champData.id,
-      role: champData.tags,
-      difficulty: champData.info.difficulty,
-    };
-  };
+  //   return {
+  //     id: champId,
+  //     name: champData.name,
+  //     title: champData.title,
+  //     image: champData.id,
+  //     role: champData.tags,
+  //     difficulty: champData.info.difficulty,
+  //   };
+  // };
 
   const getMasterySrc = (level) => {
     if (level > 10) level = 10;
@@ -166,9 +188,7 @@ export default function ChampionCardContainer({ champList }) {
             <h2 className="text-center my-2">
               {getChampData(String(champ.championId)).name}
             </h2>
-            <Link
-              to={`/champion/${getChampData(String(champ.championId)).name}`}
-            >
+            <Link to={`${champ.championId}`}>
               <div className="relative">
                 <img
                   src={`https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${
