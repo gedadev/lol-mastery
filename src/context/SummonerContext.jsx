@@ -21,6 +21,9 @@ export default function SummonerProvider({ children }) {
       image: champData.id,
       role: champData.tags,
       difficulty: champData.info.difficulty,
+      lore: champData.lore,
+      stats: champData.info,
+      spells: champData.spells,
     };
   };
 

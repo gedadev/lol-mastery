@@ -7,11 +7,12 @@ export default function Summoner() {
   const { summonerData } = useContext(SummonerContext);
 
   return (
-    <section className="p-2 m-auto">
+    <section>
       <SummonerBanner
         gameName={summonerData.gameName}
         tagLine={summonerData.tagLine}
         puuid={summonerData.puuid}
+        className="p-2 m-auto"
       />
       <Outlet />
     </section>
