@@ -1,8 +1,9 @@
 import PropTypes from "prop-types";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { convertTimestampToDate } from "../../utils/epochConverter";
-import { APIContext } from "../../context/APIContext";
+import { convertTimestampToDate } from "../utils/epochConverter";
+import { APIContext } from "../context/APIContext";
+import useSummonerData from "../hooks/useSummonerData";
 
 export default function SummonerBanner({ gameName, tagLine, puuid }) {
   const [summonerInfo, setSummonerInfo] = useState({
@@ -13,6 +14,7 @@ export default function SummonerBanner({ gameName, tagLine, puuid }) {
     summonerLevel: null,
   });
   const { serverURL } = useContext(APIContext);
+  const { summonerData } = useSummonerData();
 
   useEffect(() => {
     const getIcon = async () => {
@@ -34,8 +36,13 @@ export default function SummonerBanner({ gameName, tagLine, puuid }) {
     getIcon();
   }, [puuid, serverURL]);
 
+  useEffect(() => {
+    console.log(summonerData);
+  }, [summonerData]);
+
   return (
     <section className="mx-auto my-6 px-5 md:max-w-screen-xl flex gap-5 justify-between sm:justify-start">
+      {console.log(summonerData)}
       <div className="relative">
         <img
           src={`https://ddragon.leagueoflegends.com/cdn/14.10.1/img/profileicon/${summonerInfo.profileIconId}.png`}

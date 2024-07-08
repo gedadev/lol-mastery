@@ -1,15 +1,15 @@
-import { convertTimestampToDate } from "../../utils/epochConverter.js";
-import chest from "../../assets/img/chest.webp";
+import { convertTimestampToDate } from "../utils/epochConverter.js";
+import chest from "../assets/img/chest.webp";
 import { Link } from "react-router-dom";
-import { importedMasteries } from "../../utils/importMasteries.js";
+import { importedMasteries } from "../utils/importMasteries.js";
 import ChampionFilters from "./ChampionFilters.jsx";
 import { useContext, useEffect, useState } from "react";
 import { MdNavigateBefore } from "react-icons/md";
 import { MdNavigateNext } from "react-icons/md";
 // import championFull from "../../assets/data/championFull.json";
-import { APIContext } from "../../context/APIContext.jsx";
+import { APIContext } from "../context/APIContext.jsx";
 import axios from "axios";
-import { SummonerContext } from "../../context/SummonerContext";
+import { SummonerContext } from "../context/SummonerContext.jsx";
 
 export default function ChampionCardContainer() {
   const [champList, setChampList] = useState([]);

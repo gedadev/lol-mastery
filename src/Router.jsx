@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import Summoner from "./views/Summoner";
-import ChampionCardContainer from "./views/components/ChampionCardContainer";
-import ChampionDetails from "./views/components/ChampionDetails";
+import ChampionCardContainer from "./components/ChampionCardContainer";
+import ChampionDetails from "./components/ChampionDetails";
 
 export default function Router() {
   const router = createBrowserRouter([

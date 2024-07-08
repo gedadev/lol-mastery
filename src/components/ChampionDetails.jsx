@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { SummonerContext } from "../../context/SummonerContext";
+import { SummonerContext } from "../context/SummonerContext";
 import { useContext, useState } from "react";
 
 export default function ChampionDetails() {
