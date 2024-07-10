@@ -35,7 +35,7 @@ export default function SearchForm() {
       const data = await response.json();
       const puuid = data.puuid;
 
-      saveSummonerData(puuid, gameName, tagLine);
+      saveSummonerData({ puuid, gameName, tagLine });
       navigate("/summoner");
     } catch (error) {
       setError(true);
