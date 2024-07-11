@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { regions } from "../utils/regions";
 import { useNavigate } from "react-router-dom";
-import { APIContext } from "../context/APIContext";
 import { SummonerContext } from "../context/SummonerContext";
 import ErrorPage from "./ErrorPage";
 
@@ -12,7 +11,6 @@ export default function SearchForm() {
   const [disabledButton, setDisabledButton] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
-  const { serverURL } = useContext(APIContext);
   const { saveSummonerData } = useContext(SummonerContext);
   const navigate = useNavigate();
 
@@ -29,13 +27,7 @@ export default function SearchForm() {
     setIsLoading(true);
 
     try {
-      const response = await fetch(
-        `${serverURL}/getPUUID?name=${gameName}&tag=${tagLine}`
-      );
-      const data = await response.json();
-      const puuid = data.puuid;
-
-      saveSummonerData({ puuid, gameName, tagLine });
+      saveSummonerData({ gameName, tagLine });
       navigate("/summoner");
     } catch (error) {
       setError(true);

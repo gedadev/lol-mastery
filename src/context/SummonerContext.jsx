@@ -8,8 +8,22 @@ export default function SummonerProvider({ children }) {
   const { serverURL } = useContext(APIContext);
   const [summonerData, setSummonerData] = useState({});
 
-  const saveSummonerData = ({ puuid, gameName, tagLine }) => {
-    const getSummonerInfo = async () => {
+  const saveSummonerData = ({ gameName, tagLine }) => {
+    const getPUUID = async () => {
+      try {
+        const response = await fetch(
+          `${serverURL}/getPUUID?name=${gameName}&tag=${tagLine}`
+        );
+        const data = await response.json();
+        const puuid = data.puuid;
+
+        await getSummonerInfo({ puuid });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const getSummonerInfo = async ({ puuid }) => {
       try {
         const response = await fetch(
           `${serverURL}/getSummonerInfo?puuid=${puuid}`
@@ -30,7 +44,7 @@ export default function SummonerProvider({ children }) {
       }
     };
 
-    getSummonerInfo();
+    getPUUID();
   };
 
   const getChampData = (champId) => {
