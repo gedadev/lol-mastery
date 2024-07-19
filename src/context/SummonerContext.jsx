@@ -14,6 +14,13 @@ export default function SummonerProvider({ children }) {
     }
   }, [summonerData]);
 
+  useEffect(() => {
+    const storedSummonerData = window.localStorage.getItem("summonerData");
+    if (storedSummonerData) {
+      setSummonerData(JSON.parse(storedSummonerData));
+    }
+  }, []);
+
   const saveSummonerData = ({ gameName, tagLine }) => {
     const getPUUID = async () => {
       try {
