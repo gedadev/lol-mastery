@@ -8,7 +8,7 @@ export default function SummonerBanner() {
 
   return (
     <>
-      {summonerData.puuid ? (
+      {summonerData ? (
         <section className="mx-auto my-6 px-5 md:max-w-screen-xl flex gap-5 justify-between sm:justify-start">
           <div className="relative">
             <img

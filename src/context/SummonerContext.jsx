@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import championFull from "../assets/data/championFull.json";
 import { APIContext } from "./APIContext";
 
@@ -6,7 +6,13 @@ export const SummonerContext = createContext();
 
 export default function SummonerProvider({ children }) {
   const { serverURL } = useContext(APIContext);
-  const [summonerData, setSummonerData] = useState({});
+  const [summonerData, setSummonerData] = useState(null);
+
+  useEffect(() => {
+    if (summonerData) {
+      window.localStorage.setItem("summonerData", JSON.stringify(summonerData));
+    }
+  }, [summonerData]);
 
   const saveSummonerData = ({ gameName, tagLine }) => {
     const getPUUID = async () => {
@@ -66,7 +72,11 @@ export default function SummonerProvider({ children }) {
 
   return (
     <SummonerContext.Provider
-      value={{ summonerData, saveSummonerData, getChampData }}
+      value={{
+        summonerData,
+        saveSummonerData,
+        getChampData,
+      }}
     >
       {children}
     </SummonerContext.Provider>
