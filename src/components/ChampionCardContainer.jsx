@@ -9,7 +9,7 @@ import { MdNavigateNext } from "react-icons/md";
 // import championFull from "../../assets/data/championFull.json";
 import { APIContext } from "../context/APIContext.jsx";
 import axios from "axios";
-import { SummonerContext } from "../context/SummonerContext.jsx";
+import useSummoner from "../hooks/useSummoner.jsx";
 
 export default function ChampionCardContainer() {
   const [champList, setChampList] = useState([]);
@@ -30,7 +30,7 @@ export default function ChampionCardContainer() {
     currentPage * champsPerPage
   );
   const [activeStats, setActiveStats] = useState(false);
-  const { summonerData, getChampData } = useContext(SummonerContext);
+  const { summonerData, getChampData } = useSummoner();
 
   useEffect(() => {
     const getChampList = async () => {

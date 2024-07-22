@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
-import { SummonerContext } from "../context/SummonerContext";
-import { useContext, useState } from "react";
+import { useState } from "react";
+import useSummoner from "../hooks/useSummoner";
 
 export default function ChampionDetails() {
   const { championId } = useParams();
-  const { getChampData } = useContext(SummonerContext);
+  const { getChampData } = useSummoner();
   const [expand, setExpand] = useState(false);
 
   return (

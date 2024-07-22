@@ -1,10 +1,9 @@
-import { useContext } from "react";
+import useSummoner from "../hooks/useSummoner";
 import { convertTimestampToDate } from "../utils/epochConverter";
-import { SummonerContext } from "../context/SummonerContext";
 import { Skeleton } from "@mui/material";
 
 export default function SummonerBanner() {
-  const { summonerData } = useContext(SummonerContext);
+  const { summonerData } = useSummoner();
 
   return (
     <>

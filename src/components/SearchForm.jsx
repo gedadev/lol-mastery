@@ -1,8 +1,8 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { regions } from "../utils/regions";
 import { useNavigate } from "react-router-dom";
-import { SummonerContext } from "../context/SummonerContext";
 import ErrorPage from "./ErrorPage";
+import useSummoner from "../hooks/useSummoner";
 
 export default function SearchForm() {
   const [region, setRegion] = useState("NA1");
@@ -11,7 +11,7 @@ export default function SearchForm() {
   const [disabledButton, setDisabledButton] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
-  const { saveSummonerData, resetData } = useContext(SummonerContext);
+  const { saveSummonerData, resetData } = useSummoner();
   const navigate = useNavigate();
 
   useEffect(() => {
