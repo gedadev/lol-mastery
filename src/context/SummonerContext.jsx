@@ -21,6 +21,11 @@ export default function SummonerProvider({ children }) {
     }
   }, []);
 
+  const resetData = () => {
+    setSummonerData(null);
+    window.localStorage.removeItem("summonerData");
+  };
+
   const saveSummonerData = ({ gameName, tagLine }) => {
     const getPUUID = async () => {
       try {
@@ -83,6 +88,7 @@ export default function SummonerProvider({ children }) {
         summonerData,
         saveSummonerData,
         getChampData,
+        resetData,
       }}
     >
       {children}

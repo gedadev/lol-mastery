@@ -11,16 +11,17 @@ export default function SearchForm() {
   const [disabledButton, setDisabledButton] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
-  const { saveSummonerData } = useContext(SummonerContext);
+  const { saveSummonerData, resetData } = useContext(SummonerContext);
   const navigate = useNavigate();
 
   useEffect(() => {
+    resetData();
     if (gameName && tagLine) {
       setDisabledButton(false);
     } else {
       setDisabledButton(true);
     }
-  }, [gameName, tagLine]);
+  }, [gameName, tagLine, resetData]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
