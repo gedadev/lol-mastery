@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { IoCloseCircleSharp } from "react-icons/io5";
+import useFilters from "../hooks/useFilters";
 
-export default function ChampionFilters({
-  filters,
-  handleFilters,
-  handleChampsPerPage,
-  champsPerPage,
-  resetFilters,
-  handleStats,
-}) {
+export default function ChampionFilters() {
+  const {
+    filters,
+    handleFilters,
+    resetFilters,
+    handleChampsPerPage,
+    champsPerPage,
+    handleStats,
+  } = useFilters();
   const [activeFilters, setActiveFilters] = useState({
     role: false,
     difficulty: false,

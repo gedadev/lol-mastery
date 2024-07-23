@@ -1,20 +1,19 @@
 import { MdNavigateBefore } from "react-icons/md";
 import { MdNavigateNext } from "react-icons/md";
+import useFilters from "../hooks/useFilters";
 
-export default function ChampionNav({
-  totalPage,
-  currentPage,
-  setCurrentPage,
-}) {
+export default function ChampionNav() {
+  const { totalPage, currentPage, handleCurrentPage } = useFilters();
+
   return (
     <div className="my-5 flex justify-center gap-3 md:text-xl">
-      <button onClick={() => setCurrentPage(currentPage - 1)}>
+      <button onClick={() => handleCurrentPage(currentPage - 1)}>
         <MdNavigateBefore />
       </button>
       {Array.from({ length: totalPage }, (_, i) => (
         <button
           key={i}
-          onClick={() => setCurrentPage(i + 1)}
+          onClick={() => handleCurrentPage(i + 1)}
           className={
             currentPage === i + 1
               ? "opacity-30 pointer-events-none"
@@ -24,7 +23,7 @@ export default function ChampionNav({
           {i + 1}
         </button>
       ))}
-      <button onClick={() => setCurrentPage(currentPage + 1)}>
+      <button onClick={() => handleCurrentPage(currentPage + 1)}>
         <MdNavigateNext />
       </button>
     </div>
