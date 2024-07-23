@@ -5,15 +5,17 @@ import chest from "../assets/img/chest.webp";
 import { Link } from "react-router-dom";
 import { APIContext } from "../context/APIContext.jsx";
 import useSummoner from "../hooks/useSummoner.jsx";
+import useFilters from "../hooks/useFilters.jsx";
 
-export default function ChampionCard({
-  activeStats,
-  setFilteredChamps,
-  filteredChamps,
-  filters,
-  currentPage,
-  champsPerPage,
-}) {
+export default function ChampionCard() {
+  const {
+    filters,
+    activeStats,
+    filteredChamps,
+    handleFilteredChamps,
+    currentPage,
+    champsPerPage,
+  } = useFilters();
   const [champList, setChampList] = useState([]);
   const { serverURL } = useContext(APIContext);
   const sliceData = filteredChamps.slice(
@@ -97,7 +99,7 @@ export default function ChampionCard({
         return validChamp;
       });
 
-      setFilteredChamps(updatedList);
+      handleFilteredChamps(updatedList);
     };
 
     filterChamps();
