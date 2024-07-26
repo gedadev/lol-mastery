@@ -1,41 +1,43 @@
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import useSummoner from "../hooks/useSummoner";
+import useChampion from "../hooks/useChampion.jsx";
 
 export default function ChampionDetails() {
   const { championId } = useParams();
-  const { getChampData } = useSummoner();
+  const { getChampData } = useChampion();
   const [expand, setExpand] = useState(false);
 
   return (
     <div>
       <div className="bg-violet-900 py-2 mx-auto mt-8">
         <img
-          src={`https://ddragon.leagueoflegends.com/cdn/img/champion/centered/${
-            getChampData(String(championId)).image
-          }_0.jpg`}
-          alt={`${getChampData(String(championId)).name} Image`}
+          src={`https://ddragon.leagueoflegends.com/cdn/img/champion/centered/${getChampData(
+            championId,
+            "id"
+          )}_0.jpg`}
+          alt={`${getChampData(championId, "name")} Image`}
           className="w-full md:max-w-screen-xl h-auto mx-auto"
         />
-        <p className="font-semibold text-2xl my-2 text-center">{`${
-          getChampData(String(championId)).name
-        }, ${getChampData(String(championId)).title}`}</p>
+        <p className="font-semibold text-2xl my-2 text-center">{`${getChampData(
+          championId,
+          "name"
+        )}, ${getChampData(championId, "title")}`}</p>
       </div>
       <div className="flex flex-col md:flex-row w-full md:max-w-screen-xl mx-auto justify-center">
         <div className="mx-auto w-80">
           <h2 className="my-5">Champion Stats</h2>
           <div className="grid grid-cols-2 gap-4">
             <article className="p-5 bg-violet-900 text-center rounded-md">
-              Attack: {getChampData(String(championId)).stats.attack}
+              Attack: {getChampData(championId, "info").attack}
             </article>
             <article className="p-5 bg-violet-900 text-center rounded-md">
-              Defense: {getChampData(String(championId)).stats.defense}
+              Defense: {getChampData(championId, "info").defense}
             </article>
             <article className="p-5 bg-violet-900 text-center rounded-md">
-              Magic: {getChampData(String(championId)).stats.magic}
+              Magic: {getChampData(championId, "info").magic}
             </article>
             <article className="p-5 bg-violet-900 text-center rounded-md">
-              Difficulty: {getChampData(String(championId)).stats.difficulty}
+              Difficulty: {getChampData(championId, "info").difficulty}
             </article>
           </div>
         </div>
@@ -52,7 +54,7 @@ export default function ChampionDetails() {
             </p>
           </div>
           <div className="flex flex-col gap-5">
-            {getChampData(String(championId)).spells.map((spell, index) => (
+            {getChampData(championId, "spells").map((spell, index) => (
               <div
                 key={index}
                 className={`${
@@ -84,7 +86,7 @@ export default function ChampionDetails() {
       <div className="bg-violet-900 py-2 mx-auto mt-8">
         <div className="w-full md:max-w-screen-xl p-6 mx-auto">
           <h2 className="pb-4">Lore</h2>
-          <p className="opacity-85">{getChampData(String(championId)).lore}</p>
+          <p className="opacity-85">{getChampData(championId, "lore")}</p>
         </div>
       </div>
     </div>

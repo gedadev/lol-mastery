@@ -23,7 +23,7 @@ export default function FiltersProvider({ children }) {
       const updatedList = champList.filter((champ) => {
         const roleFilter = () => {
           if (filters.role.length > 0) {
-            const champRoles = getChampData(String(champ.championId)).role.map(
+            const champRoles = getChampData(champ.championId, "tags").map(
               (role) => role.toLowerCase()
             );
 
@@ -33,7 +33,8 @@ export default function FiltersProvider({ children }) {
         const difficultyFilter = () => {
           if (filters.difficulty.length > 0) {
             const champDifficulty = getChampData(
-              String(champ.championId)
+              champ.championId,
+              "info"
             ).difficulty;
             const convertedDifficulty = () => {
               let difficultyValues = [];
@@ -56,7 +57,7 @@ export default function FiltersProvider({ children }) {
         };
         const searchFilter = () => {
           if (filters.search !== "") {
-            const champName = getChampData(String(champ.championId)).name;
+            const champName = getChampData(champ.championId, "name");
             return champName
               .toLowerCase()
               .includes(filters.search.toLowerCase());

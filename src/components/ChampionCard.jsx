@@ -19,28 +19,24 @@ export default function ChampionCard() {
     return importedMasteries[level - 1];
   };
 
-  const handleChampData = (id, data) => {
-    return getChampData(String(id))[data];
-  };
-
   return (
     <div className="flex flex-wrap px-4 gap-2 justify-around max-w-screen-lg mx-auto">
       {sliceData.map((champ) => (
         <article
-          key={handleChampData(champ.championId, "name")}
+          key={getChampData(champ.championId, "name")}
           className="relative"
         >
           <h2 className="text-center my-2">
-            {handleChampData(champ.championId, "name")}
+            {getChampData(champ.championId, "name")}
           </h2>
           <Link to={`${champ.championId}`}>
             <div className="relative">
               <img
-                src={`https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${handleChampData(
+                src={`https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${getChampData(
                   champ.championId,
-                  "image"
+                  "id"
                 )}_0.jpg`}
-                alt={`${handleChampData(champ.championId, "name")} image`}
+                alt={`${getChampData(champ.championId, "name")} image`}
                 className="w-24 sm:w-32 md:w-44"
               />
               <div
@@ -49,10 +45,10 @@ export default function ChampionCard() {
                 } absolute bottom-0 h-full w-full rounded bg-stone-800/80 transition flex flex-col p-2 md:p-4 text-center overflow-auto overflow-x-hidden ease-in-out	duration-300`}
               >
                 <p className="text-sm md:text-lg mt-1">
-                  {handleChampData(champ.championId, "title")}
+                  {getChampData(champ.championId, "title")}
                 </p>
                 <div className="flex justify-around text-xs flex-wrap opacity-70 mb-1">
-                  {handleChampData(champ.championId, "role").map((role) => (
+                  {getChampData(champ.championId, "tags").map((role) => (
                     <p key={role}>{role}</p>
                   ))}
                 </div>
@@ -64,7 +60,7 @@ export default function ChampionCard() {
                 </p>
                 <p className="mt-5 text-xs md:text-sm opacity-60">
                   Difficulty level:
-                  {handleChampData(champ.championId, "difficulty")}
+                  {getChampData(champ.championId, "difficulty")}
                 </p>
                 <p className="text-xs md:text-sm opacity-60">
                   Last Played: {convertTimestampToDate(champ.lastPlayTime)}

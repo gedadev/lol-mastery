@@ -22,21 +22,12 @@ export default function useChampion() {
     getChampList();
   }, [summonerData, serverURL]);
 
-  const getChampData = (champId) => {
+  const getChampData = (champId, data) => {
     const champData = Object.values(championFull.data).find(
-      (champ) => champ.key === champId
+      (champ) => champ.key === String(champId)
     );
 
-    return {
-      name: champData.name,
-      title: champData.title,
-      image: champData.id,
-      role: champData.tags,
-      difficulty: champData.info.difficulty,
-      lore: champData.lore,
-      stats: champData.info,
-      spells: champData.spells,
-    };
+    return champData[data];
   };
 
   return { champList, getChampData };
