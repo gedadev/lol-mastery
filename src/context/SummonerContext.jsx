@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import championFull from "../assets/data/championFull.json";
 import { APIContext } from "./APIContext";
 
 export const SummonerContext = createContext();
@@ -65,29 +64,11 @@ export default function SummonerProvider({ children }) {
     getPUUID();
   };
 
-  const getChampData = (champId) => {
-    const champData = Object.values(championFull.data).find(
-      (champ) => champ.key === champId
-    );
-
-    return {
-      name: champData.name,
-      title: champData.title,
-      image: champData.id,
-      role: champData.tags,
-      difficulty: champData.info.difficulty,
-      lore: champData.lore,
-      stats: champData.info,
-      spells: champData.spells,
-    };
-  };
-
   return (
     <SummonerContext.Provider
       value={{
         summonerData,
         saveSummonerData,
-        getChampData,
         resetData,
       }}
     >
