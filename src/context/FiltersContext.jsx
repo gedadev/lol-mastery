@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import useChampion from "../hooks/useChampion";
 
 export const FiltersContext = createContext();
 
@@ -15,6 +16,72 @@ export default function FiltersProvider({ children }) {
   const [activeStats, setActiveStats] = useState(false);
   const totalPage = Math.ceil(filteredChamps.length / champsPerPage);
   const [currentPage, setCurrentPage] = useState(1);
+  const { champList, getChampData } = useChampion();
+
+  useEffect(() => {
+    const filterChamps = () => {
+      const updatedList = champList.filter((champ) => {
+        const roleFilter = () => {
+          if (filters.role.length > 0) {
+            const champRoles = getChampData(String(champ.championId)).role.map(
+              (role) => role.toLowerCase()
+            );
+
+            return filters.role.every((role) => champRoles.includes(role));
+          }
+        };
+        const difficultyFilter = () => {
+          if (filters.difficulty.length > 0) {
+            const champDifficulty = getChampData(
+              String(champ.championId)
+            ).difficulty;
+            const convertedDifficulty = () => {
+              let difficultyValues = [];
+              filters.difficulty.forEach((diff) => {
+                if (diff === "easy") difficultyValues.push(1, 2, 3);
+                if (diff === "medium") difficultyValues.push(4, 5, 6, 7);
+                if (diff === "hard") difficultyValues.push(8, 9, 10);
+              });
+              return difficultyValues;
+            };
+
+            return convertedDifficulty().includes(champDifficulty);
+          }
+        };
+        const levelFilter = () =>
+          filters.level >= Math.min(champ.championLevel, 10);
+
+        const chestFilter = () => {
+          if (filters.chest) return !champ.chestGranted;
+        };
+        const searchFilter = () => {
+          if (filters.search !== "") {
+            const champName = getChampData(String(champ.championId)).name;
+            return champName
+              .toLowerCase()
+              .includes(filters.search.toLowerCase());
+          }
+          return true;
+        };
+        const validChamp = [
+          roleFilter(),
+          difficultyFilter(),
+          levelFilter(),
+          chestFilter(),
+          searchFilter(),
+        ].reduce((acc, curr) => {
+          if (curr === undefined) return acc;
+          return acc && curr;
+        }, true);
+
+        return validChamp;
+      });
+
+      handleFilteredChamps(updatedList);
+    };
+
+    filterChamps();
+  }, [filters, champList]);
 
   const handleFilters = (e, fieldset) => {
     setFilters((prev) => {
