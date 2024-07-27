@@ -6,8 +6,8 @@ import useSummoner from "../hooks/useSummoner";
 
 export default function SearchForm() {
   const [region, setRegion] = useState("NA1");
-  const [gameName, setGameName] = useState("l0boDomestikad0");
-  const [tagLine, setTagLine] = useState("5701");
+  const [gameName, setGameName] = useState("");
+  const [tagLine, setTagLine] = useState("");
   const [disabledButton, setDisabledButton] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -74,6 +74,7 @@ export default function SearchForm() {
               onChange={(e) => setGameName(e.target.value)}
               required
               autoComplete="off"
+              placeholder="League Name"
             />
           </div>
           <div className="w-auto flex flex-col gap-2 lg:flex-row lg:items-center">
@@ -86,6 +87,7 @@ export default function SearchForm() {
               onChange={(e) => setTagLine(e.target.value)}
               required
               autoComplete="off"
+              placeholder="1234"
             />
           </div>
           <button
