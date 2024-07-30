@@ -6,6 +6,21 @@ export const SummonerContext = createContext();
 export default function SummonerProvider({ children }) {
   const { serverURL } = useContext(APIContext);
   const [summonerData, setSummonerData] = useState(null);
+  const [topSummoners, setTopSummoners] = useState(null);
+
+  useEffect(() => {
+    const getTopSummoners = async () => {
+      try {
+        const response = await fetch(`${serverURL}/getTopPlayers`);
+        const data = await response.json();
+        setTopSummoners(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getTopSummoners();
+  }, []);
 
   useEffect(() => {
     if (summonerData) {
@@ -70,6 +85,7 @@ export default function SummonerProvider({ children }) {
         summonerData,
         saveSummonerData,
         resetData,
+        topSummoners,
       }}
     >
       {children}
