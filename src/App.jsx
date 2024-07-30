@@ -1,11 +1,9 @@
-import SearchForm from "./components/SearchForm";
+import Home from "./views/Home";
 
 function App() {
   return (
     <>
-      <main>
-        <SearchForm />
-      </main>
+      <Home />
       <footer className="absolute bottom-0 left-0 min-w-full">
         <p className="text-center text-xs text-opacity-50 text-stone-200 px-10 py-4">
           This website is not endorsed by Riot Games and does not reflect the
