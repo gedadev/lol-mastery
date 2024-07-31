@@ -1,9 +1,22 @@
 import React from "react";
 import useSummoner from "../hooks/useSummoner";
 import { Skeleton } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export default function Leaderboard() {
-  const { topSummoners } = useSummoner();
+  const { topSummoners, saveSummonerData } = useSummoner();
+  const navigate = useNavigate();
+
+  const handleSummonerChamps = (summoner) => {
+    const { gameName, tagLine } = summoner;
+
+    try {
+      saveSummonerData({ gameName, tagLine });
+      navigate("/summoner");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="mx-4 md:mx-auto max-w-screen-md">
@@ -23,8 +36,11 @@ export default function Leaderboard() {
           <tbody className="opacity-75 text-xs sm:text-sm">
             {topSummoners.map((summoner, index) => (
               <React.Fragment key={summoner.puuid}>
-                <tr className="text-center h-10">
-                  <td>{index + 1}</td>
+                <tr
+                  className="text-center h-10 cursor-pointer hover:bg-violet-600 transition-all duration-200"
+                  onClick={() => handleSummonerChamps(summoner)}
+                >
+                  <td className="rounded-l-lg">{index + 1}</td>
                   <td>
                     <div className="flex gap-2 items-center">
                       <img
@@ -41,7 +57,7 @@ export default function Leaderboard() {
                   <td>{summoner.leaguePoints}</td>
                   <td>{summoner.summonerLevel}</td>
                   <td>{summoner.wins}</td>
-                  <td>{summoner.losses}</td>
+                  <td className="rounded-r-lg">{summoner.losses}</td>
                 </tr>
               </React.Fragment>
             ))}
