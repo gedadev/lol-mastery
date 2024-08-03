@@ -3,7 +3,7 @@ import useSummoner from "../hooks/useSummoner";
 import { Skeleton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-export default function Leaderboard() {
+export default function LeaderBoard() {
   const { topSummoners, saveSummonerData } = useSummoner();
   const navigate = useNavigate();
 
