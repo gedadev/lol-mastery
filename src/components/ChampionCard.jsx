@@ -30,14 +30,14 @@ export default function ChampionCard() {
             {getChampData(champ.championId, "name")}
           </h2>
           <Link to={`${champ.championId}`}>
-            <div className="relative">
+            <div className="relative w-24 h-44 sm:w-32 sm:h-60 md:w-44 md:h-80">
               <img
                 src={`https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${getChampData(
                   champ.championId,
                   "id"
                 )}_0.jpg`}
-                alt={`${getChampData(champ.championId, "name")} image`}
-                className="w-24 sm:w-32 md:w-44"
+                alt={`${getChampData(champ.championId, "name")}'s Image`}
+                className="w-full object-cover"
               />
               <div
                 className={`${
