@@ -1,12 +1,25 @@
 import { useContext, useEffect, useState } from "react";
 import { APIContext } from "../context/APIContext";
 import useSummoner from "./useSummoner";
-import championFull from "../assets/data/championFull.json";
 
 export default function useChampion() {
   const [champList, setChampList] = useState([]);
   const { serverURL } = useContext(APIContext);
   const { summonerData } = useSummoner();
+  const [championFull, setChampionFull] = useState();
+
+  useEffect(() => {
+    const source =
+      "https://ddragon.leagueoflegends.com/cdn/14.23.1/data/en_US/champion.json";
+
+    const getData = async () => {
+      const response = await fetch(source);
+      const data = await response.json();
+      setChampionFull(data);
+    };
+
+    getData();
+  }, []);
 
   useEffect(() => {
     const getChampList = async () => {
