@@ -11,7 +11,12 @@ export default function SummonerProvider({ children }) {
   useEffect(() => {
     const getTopSummoners = async () => {
       try {
-        const response = await fetch(`${serverURL}/getTopPlayers`);
+        const response = await fetch(`${serverURL}/getTopPlayers`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         const data = await response.json();
         setTopSummoners(data);
       } catch (error) {
@@ -44,7 +49,13 @@ export default function SummonerProvider({ children }) {
     const getPUUID = async () => {
       try {
         const response = await fetch(
-          `${serverURL}/getPUUID?name=${gameName}&tag=${tagLine}`
+          `${serverURL}/getPUUID?name=${gameName}&tag=${tagLine}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
         );
         const data = await response.json();
         const puuid = data.puuid;
@@ -58,7 +69,13 @@ export default function SummonerProvider({ children }) {
     const getSummonerInfo = async ({ puuid }) => {
       try {
         const response = await fetch(
-          `${serverURL}/getSummonerInfo?puuid=${puuid}`
+          `${serverURL}/getSummonerInfo?puuid=${puuid}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
         );
         const data = await response.json();
         const { profileIconId, revisionDate, summonerLevel } = data;
