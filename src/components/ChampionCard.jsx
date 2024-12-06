@@ -59,8 +59,8 @@ export default function ChampionCard() {
                   Points: {champ.championPoints}
                 </p>
                 <p className="mt-5 text-xs md:text-sm opacity-60">
-                  Difficulty level:
-                  {getChampData(champ.championId, "difficulty")}
+                  Difficulty level:&nbsp;
+                  {getChampData(champ.championId, "info").difficulty}
                 </p>
                 <p className="text-xs md:text-sm opacity-60">
                   Last Played: {convertTimestampToDate(champ.lastPlayTime)}

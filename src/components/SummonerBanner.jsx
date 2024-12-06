@@ -1,14 +1,21 @@
+import { useNavigate } from "react-router-dom";
 import useSummoner from "../hooks/useSummoner";
 import { convertTimestampToDate } from "../utils/epochConverter";
 import { Skeleton } from "@mui/material";
+import { IoChevronBackCircle } from "react-icons/io5";
 
 export default function SummonerBanner() {
   const { summonerData } = useSummoner();
+  const navigate = useNavigate();
 
   return (
     <>
       {summonerData ? (
-        <section className="mx-auto my-6 px-5 md:max-w-screen-xl flex gap-5 justify-between sm:justify-start">
+        <section className="mx-auto my-6 px-5 md:max-w-screen-xl flex gap-5 justify-between sm:justify-start relative">
+          <IoChevronBackCircle
+            className="absolute right-0 mr-6 mt-2 size-6 cursor-pointer hover:scale-125 transition ease-in-out delay-50"
+            onClick={() => navigate(-1)}
+          />
           <div className="relative">
             <img
               src={`https://ddragon.leagueoflegends.com/cdn/14.10.1/img/profileicon/${summonerData.profileIconId}.png`}
