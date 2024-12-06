@@ -10,7 +10,7 @@ export default function useChampion() {
 
   useEffect(() => {
     const source =
-      "https://ddragon.leagueoflegends.com/cdn/14.23.1/data/en_US/champion.json";
+      "https://ddragon.leagueoflegends.com/cdn/14.23.1/data/en_US/championFull.json";
 
     const getData = async () => {
       const response = await fetch(source);
@@ -19,6 +19,10 @@ export default function useChampion() {
     };
 
     getData();
+
+    return () => {
+      setChampionFull(null);
+    };
   }, []);
 
   useEffect(() => {
@@ -43,5 +47,5 @@ export default function useChampion() {
     return champData[data];
   };
 
-  return { champList, getChampData };
+  return { champList, getChampData, championFull };
 }
