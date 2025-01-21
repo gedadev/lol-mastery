@@ -6,7 +6,7 @@ import useChampion from "../hooks/useChampion.jsx";
 export default function ChampionCard() {
   const { activeStats, filteredChamps, currentPage, champsPerPage } =
     useFilters();
-  const { getChampData, championFull, masteryAssets } = useChampion();
+  const { getChampData, championFull, assetsURL } = useChampion();
   const sliceData = filteredChamps.slice(
     (currentPage - 1) * champsPerPage,
     currentPage * champsPerPage
@@ -14,7 +14,8 @@ export default function ChampionCard() {
 
   const getMasterySrc = (level) => {
     if (level > 10) level = 10;
-    return `${masteryAssets}/masteries/Mastery_${level}.webp`;
+
+    return `${assetsURL}/masteries/Mastery_${level}.webp`;
   };
 
   return (
@@ -76,7 +77,7 @@ export default function ChampionCard() {
               className="w-12 sm:w-16 md:w-20 absolute -bottom-4 -left-2"
             />
             <img
-              src={`${masteryAssets}/chest.webp`}
+              src={`${assetsURL}/chest.webp`}
               alt="chest image"
               className={`${
                 !champ.chestGranted ? "opacity-50" : "opacity-100"

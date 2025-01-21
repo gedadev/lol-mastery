@@ -7,20 +7,12 @@ export default function useChampion() {
   const { serverURL } = useContext(APIContext);
   const { summonerData } = useSummoner();
   const [championFull, setChampionFull] = useState();
-  const [masteryAssets, setMasteryAssets] = useState(null);
+  const [assetsURL, setAssetsURL] = useState("");
 
   useEffect(() => {
-    const getAssets = async () => {
-      try {
-        const response = await fetch(`${serverURL}/getAssets`);
-        const url = await response.text();
-        setMasteryAssets(url);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    getAssets();
+    setAssetsURL(
+      "https://pub-1d0f11ab543f45ecb624359bc1a436a7.r2.dev/mastery-assests"
+    );
   }, []);
 
   useEffect(() => {
@@ -62,5 +54,5 @@ export default function useChampion() {
     return champData[data];
   };
 
-  return { champList, getChampData, championFull, masteryAssets };
+  return { champList, getChampData, championFull, assetsURL };
 }
